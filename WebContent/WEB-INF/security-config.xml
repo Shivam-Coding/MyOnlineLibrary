@@ -1,0 +1,31 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+		 xmlns:b="http://www.springframework.org/schema/beans"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 
+		 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+					
+	<http pattern="/css/**" security="none"/>	    
+						    
+  <http>
+  <csrf disabled="true"/>
+  <intercept-url pattern="/login.jsp" access="permitAll"/>
+  <intercept-url pattern="/addBook" access="hasRole('ROLE_ADMIN')"/>
+  <form-login login-processing-url="/userLogin" username-parameter="username"
+              password-parameter="password"
+              authentication-failure-url="/login.jsp?error"
+  			  login-page="/login.jsp"/>
+  <logout/>
+  </http>
+  
+  <authentication-manager>
+  		<authentication-provider>
+  			
+  			<user-service>
+  				<user name="Shivam" password="test" authorities="ROLE_ADMIN, ROLE_USER"></user>
+  			</user-service>
+  		
+  		</authentication-provider>
+  </authentication-manager>
+  
+</b:beans>						    
